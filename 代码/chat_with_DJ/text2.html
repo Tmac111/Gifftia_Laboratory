@@ -1,0 +1,77 @@
+<?PHP
+include "config.inc.php";
+include "header.inc.php";
+
+?>
+
+
+
+<script language="javascript">
+
+if(window.XMLHttpRequest)
+{
+	//mozilla浏览器
+	xmlhttp=new XMLHttpRequest();
+	//alert("od");
+	
+	if(xmlhttp.overrideMimeType)
+	{
+		//设置mime类型?????????不了然 
+		xmlhttp.overrideMimeType('text/xml');
+		
+	}
+}
+else if(window.ActiveXObject)
+{
+	//IE浏览器
+	try{
+		xmlhttp=new ActiveXObject();
+		
+	}catch(e){ alert("未创建对象");}
+	
+
+}//对象初始化完毕
+//发送http请求
+function sendRequest(url)
+{
+	alert(url);
+	if(!xmlhttp)
+	{
+		window.alert("没有创建xmlhttp成功");
+		return false;
+	}
+	//open()确定打开的方式，URL,以及是否同步执行下段代码（若true则不执行；false执行）
+	
+	xmlhttp.open("POST",url,true);
+	//指定处理函数，此processRequest自己编写
+	//xmlhttp.onreadystatechange(状态改变的时间触发器)
+	xmlhttp.onreadystatechange=processRequest;
+	xmlhttp.send(null);
+}
+//处理返回信息的函数
+function processRequest()
+{
+	//alert(xmlhttp.readyState);
+	if(xmlhttp.readyState==4){
+		//alert(xmlhttp.status);
+		if(xmlhttp.status==200)
+		{
+			alert("更新成功");
+		}
+		else 
+		{
+			alert("页面不正常");
+		}
+	}
+	
+
+}
+function change(id)
+{
+	
+	sendRequest("changedelto.php?id="+id);
+
+}
+</script>
+ <a href="javascript:void(0)" onclick="change(9)" >quba</a>
+ 
